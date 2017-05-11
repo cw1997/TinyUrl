@@ -1,0 +1,52 @@
+{
+    "webserver": {
+        "ip": "127.0.0.1",
+        "port": "9716",
+        "_comment": "web服务器监听IP以及端口"
+    },
+    "parameter": {
+        "shorturl": "s",
+        "longurl": "l",
+        "_comment": "get接受参数名"
+    },
+    "rand": {
+        "retires": "1997",
+        "_comment": "随机碰撞重试次数"
+    },
+    "url": {
+        "length": "6",
+        "chars": "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM",
+        "_comment": "短网址长度以及可用的字符串"
+    },
+    "database": {
+        "ip": "127.0.0.1",
+        "port": "3306",
+        "username": "root",
+        "password": "root",
+        "database": "tinyurl",
+        "charset": "utf8",
+        "prefix": "tinyurl_",
+        "maxIdle": "2",
+        "maxOpen": "500",
+        "maxLifetime": "60",
+        "_comment": "数据库连接信息，prefix为表前缀，maxIdle为最多空闲连接数，maxOpen为最多打开连接数，maxLifetime为最长连接时间"
+    },
+	"cache": {
+		"ip": "127.0.0.1",
+		"port": "6379",
+		"username": "",
+		"password": "",
+		"prefix": "tinyurl:",
+		"expire": "7200",
+		"db": "0",
+		"maxIdle": "1",
+		"maxActive": "200",
+		"idleTimeout": "180",
+        "_comment": "缓存连接信息，prefix为键名前缀，maxIdle为最多空闲连接数，maxActive为最多打开连接数，idleTimeout为最长连接时间"
+	},
+    "log": {
+        "enabled": "true",
+        "path": "",
+        "_comment": "enabled为true表示启用日志记录，path为日志文件路径，留空则为主程序所在路径下的log文件夹"
+    }
+}
