@@ -20,8 +20,12 @@ import (
 	"web"
 )
 
+const (
+	version = "1.0.1"
+)
+
 func main() {
-	fmt.Println("Welcome to use TinyUrl.")
+	fmt.Println("Welcome to use TinyUrl V" + version)
 	fmt.Println("If you have any problems,")
 	fmt.Println("you can contact us at any time by issue.")
 	fmt.Println("http://github.com/cw1997/TinyUrl/issues")

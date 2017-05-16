@@ -24,7 +24,8 @@ func storeUrl(longUrl string, ip string) string {
 		return ""
 	}
 	//	为了性能，允许插入时间戳有少量误差
-	datetime := util.GetTimestamp()
+	//	datetime := util.GetTimestamp()
+	datetime := util.GetDatetime()
 	for i := 0; i < retries; i++ {
 		shortUrl = url.GeneralShortgUrl(longUrl)
 		//		此处逻辑有误：当事务隔离级别为“Repeatable read”，按照老方法判断会出现幻读现象

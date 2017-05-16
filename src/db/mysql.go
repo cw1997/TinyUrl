@@ -86,20 +86,21 @@ func GetLongUrlByShortUrl(shortUrl string) (string, error) {
 	//	fmt.Println(longUrl)
 	return longUrl, nil
 }
-func GetShortUrlByLongUrl(longUrl string) (string, error) {
-	var shortUrl string
-	row := db.QueryRow("SELECT `shorturl` FROM `"+config.Get("database.prefix")+"url` WHERE `longurl` = ?", longUrl)
-	//	defer row.Close()
-	rowErr := row.Scan(&shortUrl)
-	if rowErr != nil {
-		log.Printf("get row error: %v\n", rowErr)
-		return "", rowErr
-	}
-	//	fmt.Println(longUrl)
-	return shortUrl, nil
-}
 
-func SetShortUrlByLongUrl(longUrl string, shortUrl string, datetime int64, ip string) bool {
+//func GetShortUrlByLongUrl(longUrl string) (string, error) {
+//	var shortUrl string
+//	row := db.QueryRow("SELECT `shorturl` FROM `"+config.Get("database.prefix")+"url` WHERE `longurl` = ?", longUrl)
+//	//	defer row.Close()
+//	rowErr := row.Scan(&shortUrl)
+//	if rowErr != nil {
+//		log.Printf("get row error: %v\n", rowErr)
+//		return "", rowErr
+//	}
+//	//	fmt.Println(longUrl)
+//	return shortUrl, nil
+//}
+
+func SetShortUrlByLongUrl(longUrl string, shortUrl string, datetime string, ip string) bool {
 	db := connect()
 	ret, err := db.Exec("INSERT INTO `tinyurl_url` (`longurl`, `shorturl`, `add_time`, `add_ip`) VALUES (?, ?, ?, ?)", longUrl, shortUrl, datetime, ip)
 	if err != nil {
