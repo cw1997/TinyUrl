@@ -1,4 +1,4 @@
-// web.go
+// http.go
 // author:昌维 [github.com/cw1997]
 // date:2017-05-07 14:36:25
 
@@ -48,7 +48,7 @@ func (param *param) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		shortUrl := storeUrl(param.LongUrl, ip)
 		if shortUrl == "" {
 			errorno = 1
-			//			fmt.Println(err)
+			log.Println("convert the url failed")
 			errormsg = "convert the url failed, or system is error."
 		}
 		returnData["long_url"] = shortUrl

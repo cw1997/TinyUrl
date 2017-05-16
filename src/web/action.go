@@ -23,32 +23,31 @@ func storeUrl(longUrl string, ip string) string {
 		log.Println(err)
 		return ""
 	}
+	//	为了性能，允许插入时间戳有少量误差
+	datetime := util.GetTimestamp()
 	for i := 0; i < retries; i++ {
 		shortUrl = url.GeneralShortgUrl(longUrl)
-		if l, err := getLongUrl(shortUrl); l == "" && err != nil {
-			break
+		//		此处逻辑有误：当事务隔离级别为“Repeatable read”，按照老方法判断会出现幻读现象
+		//		if l, err := getLongUrl(shortUrl); l == "" && err != nil {
+		//			break
+		//		}
+		if db.SetShortUrlByLongUrl(longUrl, shortUrl, datetime, ip) {
+			cache.SetShortUrlCache(shortUrl, longUrl)
+			return shortUrl
 		}
-	}
-	datetime := util.GetTimestamp()
-	if db.SetShortUrlByLongUrl(longUrl, shortUrl, datetime, ip) {
-		cache.SetShortUrlCache(shortUrl, longUrl)
-		return shortUrl
 	}
 	return ""
 }
 
 func getLongUrl(shortUrl string) (string, error) {
-	if v, err := cache.Get(shortUrl); err == nil {
+	if v, err := cache.Get(config.Get("cache.prefix") + shortUrl); err == nil {
 		return v, nil
 	} else {
 		//		log.Println(err)
 	}
 	if v, err := url.GetLongUrl(shortUrl); err == nil {
-		if ok, errCache := cache.SetShortUrlCache(shortUrl, v); ok == true {
-			return v, nil
-		} else {
-			return "", errCache
-		}
+		_, errCache := cache.SetShortUrlCache(shortUrl, v)
+		return v, errCache
 	} else {
 		return "", err
 	}

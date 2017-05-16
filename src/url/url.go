@@ -7,6 +7,7 @@ import (
 	"log"
 	"math/rand"
 	"strconv"
+	"time"
 	//	"strings"
 
 	"config"
@@ -17,14 +18,15 @@ func GeneralShortgUrl(longUrl string) string {
 	var shortUrl string
 	shortUrlLen, err := strconv.Atoi(config.Get("url.length"))
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 		return ""
 	}
 	urlCharsSlice := config.Get("url.chars")
 	urlCharsLen := len(urlCharsSlice)
 
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < shortUrlLen; i++ {
-		randNumber := rand.Intn(urlCharsLen)
+		randNumber := r.Intn(urlCharsLen)
 		shortUrl += urlCharsSlice[randNumber : randNumber+1]
 	}
 	return shortUrl
