@@ -1,6 +1,10 @@
 # TinyUrl
 一个Golang开发的短网址服务
 
+# 部署方法
+Windows下请直接正确配置config.json文件，并且开启好相关环境（MySQL，Redis）然后即可运行bin目录下已经编译好的二进制可执行文件。
+Linux下请手动编译，启动时需要开启的环境和Windows一致。
+
 ---
 
 # 更新日志
