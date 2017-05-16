@@ -6,7 +6,14 @@ Windows下请直接正确配置config.json文件，并且开启好相关环境�
 
 Linux下请手动编译，启动时需要开启的环境和Windows一致。
 
+# 使用方法
+
 可选启动参数：tinyurl.exe -config C:\config.json
+
+首次启动时保证可执行文件目录下有tinyurl.sql.tpl文件，该文件为数据库DDL模版，用于生成数据库表结构。
+
+启动之后访问`http://ip:port/l=长网址`，会返回json格式的数据，里面有对应的短网址部分，直接访问`http://ip:port/短网址`即会自动跳转到对应的原始长网址。其中ip，port，l等参数均可在config.json配置文件中修改。
+
 
 ---
 
