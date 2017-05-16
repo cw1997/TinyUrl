@@ -1,6 +1,17 @@
 # TinyUrl
 一个Golang开发的短网址服务
 
+---
+
+# 更新日志
+## Ver 1.0.1 (2017-05-16)
+- 修复缓存读取时所使用的key未加prefix导致所有请求无法利用缓存的缺陷
+- db包下的mysql操作库修正命名为mysql.go
+- 增加rand种子以当前时间戳取值
+- 修复url随机构造部分未考虑到高并发场景下由于rand种子取值窗口过小导致碰撞几率变大，在mysql数据库下当事务隔离级别为“Repeatable read”时可能导致幻读的缺陷
+
+---
+
 ## TinyUrl短网址服务（http://github.com/cw1997/TinyUrl）
 ### 技术栈：Golang，MySQL，Redis
 ### 开发时间：2017.5
